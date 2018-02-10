@@ -322,3 +322,11 @@ footer {
     color:#444;
   }
 }
+
+#homelink {
+    position:fixed;
+    bottom:10px;
+    right:0px;
+    height:16px;
+    width:30px; 
+}
