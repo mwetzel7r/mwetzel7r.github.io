@@ -326,7 +326,28 @@ footer {
 #homelink {
     position:fixed;
     bottom:10px;
-    right:0px;
+    right:2px;
     height:16px;
-    width:30px; 
+    width:16px; 
+}
+#githublink {
+    position:fixed;
+    bottom:10px;
+    right:18px;
+    height:16px;
+    width:16px; 
+}
+#osflink {
+    position:fixed;
+    bottom:10px;
+    right:36px;
+    height:16px;
+    width:16px; 
+}
+#researchgatelink {
+    position:fixed;
+    bottom:10px;
+    right:54px;
+    height:16px;
+    width:16px; 
 }
