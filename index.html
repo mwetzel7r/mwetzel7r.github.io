@@ -69,11 +69,12 @@
         o_canvas.addChild(node);
       }
 
-
+      x = 0
+      y = 0
       function update_node_loc(nodes) {
         for (let n in nodes) {
-          momentums_x[n] = .01 * (o_canvas.mouse.x - nodes[n].x) + (.9 * momentums_x[n])
-          momentums_y[n] = .01 * (o_canvas.mouse.y - nodes[n].y) + (.9 * momentums_y[n])
+          momentums_x[n] = .01 * (x - nodes[n].x) + (.9 * momentums_x[n])
+          momentums_y[n] = .01 * (y - nodes[n].y) + (.9 * momentums_y[n])
 
 
           nodes[n].x = nodes[n].x + momentums_x[n] + (Math.random() * 10) - (Math.random() * 10)
@@ -98,9 +99,16 @@
         scatter(nodes);
       });
 
-      o_canvas.bind("touch", function () {
-        scatter(nodes);
-      });
+      o_canvas.bind("touchmove", function () {
+        x = o_canvas.touch.x
+        y = o_canvas.touch.y
+      })
+
+      o_canvas.bind("mousemove", function () {
+        x = o_canvas.mouse.x
+        y = o_canvas.mouse.y
+      })
+
 
       function resize_ocanvas() {
         o_canvas.width = window.innerWidth;
