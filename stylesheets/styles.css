@@ -358,3 +358,10 @@ footer {
     height:16px;
     width:16px; 
 }
+#shoutout {
+    position:fixed;
+    bottom:10px;
+    left:10px;
+    height:16px;
+    width:400px; 
+}
