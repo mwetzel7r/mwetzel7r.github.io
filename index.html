@@ -60,8 +60,8 @@
       node_positions_x = []
       node_positions_y = []
       for (i=0; i < settings['num_nodes']; i++) {
-        pos_x = Math.random() * 1000
-        pos_y = Math.random() * 1000
+        pos_x = window.innerWidth / 2 + Math.random() * 600 - Math.random() * 600
+        pos_y = window.innerHeight / 2 + Math.random() * 600 - Math.random() * 600
 
         var node = o_canvas.display.arc({
           x: pos_x,
@@ -85,8 +85,8 @@
       function update_node_loc(nodes) {
         for (let n in nodes) {
 
-          momentums_x[n] = .01 * (x - nodes[n].x) + (.9 * momentums_x[n]) + (.01 * (x - arrMean(node_positions_x))) + (.0075 * (node_positions_x[n] - arrMean(node_positions_x)))
-          momentums_y[n] = .01 * (y - nodes[n].y) + (.9 * momentums_y[n]) + (.01 * (y - arrMean(node_positions_y))) + (.0075 * (node_positions_y[n] - arrMean(node_positions_y)))
+          momentums_x[n] = .5 * (x - nodes[n].x) * Math.exp(7 * -Math.abs(Math.sqrt((x - nodes[n].x)**2 + (y - nodes[n].y)**2))/500) + (.1 * momentums_x[n]) + (.01 * (x - arrMean(node_positions_x)))// + (.0075 * (node_positions_x[n] - arrMean(node_positions_x)))
+          momentums_y[n] = .5 * (y - nodes[n].y) * Math.exp(7 * -Math.abs(Math.sqrt((x - nodes[n].x)**2 + (y - nodes[n].y)**2))/500) + (.1 * momentums_y[n]) + (.01 * (y - arrMean(node_positions_y)))// + (.0075 * (node_positions_y[n] - arrMean(node_positions_y)))
 
           node_positions_x[n] = node_positions_x[n] + momentums_x[n] + (Math.random() * 10) - (Math.random() * 10)
           node_positions_y[n] = node_positions_y[n] + momentums_y[n] + (Math.random() * 10) - (Math.random() * 10)
@@ -100,8 +100,8 @@
 
       function scatter(nodes) {
         for (let n in nodes) {
-          node_positions_x[n] =  node_positions_x[n] + (Math.random() * 500) - (Math.random() * 500)
-          node_positions_y[n] =  node_positions_y[n] + (Math.random() * 500) - (Math.random() * 500)
+          node_positions_x[n] =  node_positions_x[n] + (Math.random() * 100) - (Math.random() * 100)
+          node_positions_y[n] =  node_positions_y[n] + (Math.random() * 100) - (Math.random() * 100)
           
           nodes[n].x = node_positions_x[n] 
           nodes[n].y = node_positions_y[n] 
