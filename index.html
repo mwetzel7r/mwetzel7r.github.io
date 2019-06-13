@@ -12,17 +12,100 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <script src='./modules/ocanvas-2.9.1.js'></script>
+
+
   </head>
   <body>
     <div class="wrapper">
-      <header>
+      <!-- <header> -->
 
-        <div>
+        <!-- <div> -->
           <h1>matt wetzel</h1>
           <p>¯\_(ツ)_/¯</p>
-        </div>
-        
-      </header>
+        <!-- </div> -->
+      <!-- </header> -->
+    <div>
+
+        <!-- Particle Swarm Viz -->
+
+      <canvas id="particle_space" width="900" height="500" style="border:1px solid #000000;">>your browser doesn't support canvas objects. *shrug*</canvas>
+
+      <script>
+
+        // settings
+        var settings = {
+          'num_nodes': 100,
+          'node_size': 5,
+          'node_fill_color': 'rgba(0,0,0,.5)',
+          // 'canvas_background': '#ececec'
+        };
+
+        // __Initial Setup__
+        var canvas = document.getElementById('particle_space');
+        var ctx = canvas.getContext('2d');
+        ctx.lineWidth = 2;
+
+        var o_canvas = oCanvas.create({
+          canvas: "#particle_space",
+          background: settings['canvas_background'],
+        });
+
+        nodes = []
+        momentums_x = []
+        momentums_y = []
+        for (i=0; i < settings['num_nodes']; i++) {
+          var node = o_canvas.display.arc({
+            x: Math.random() * 1000,
+            y: Math.random() * 1000,
+            radius: settings['node_size'],
+            start: 360,
+            fill: settings['node_fill_color'],
+          })
+          nodes = [...nodes, node] // <-- add node to nodes list
+          momentums_x = [...momentums_x, 0]
+          momentums_y = [...momentums_y, 0]
+          o_canvas.addChild(node);
+        }
+
+
+        function update_node_loc(nodes) {
+          for (let n in nodes) {
+            momentums_x[n] = .01 * (o_canvas.mouse.x - nodes[n].x) + (.9 * momentums_x[n])
+            momentums_y[n] = .01 * (o_canvas.mouse.y - nodes[n].y) + (.9 * momentums_y[n])
+
+
+            nodes[n].x = nodes[n].x + momentums_x[n] + (Math.random() * 10) - (Math.random() * 10)
+            nodes[n].y = nodes[n].y + momentums_y[n] + (Math.random() * 10) - (Math.random() * 10)
+
+          }
+          o_canvas.redraw()
+        }
+
+        function scatter(nodes) {
+          for (let n in nodes) {
+            nodes[n].x = nodes[n].x + (Math.random() * 500) - (Math.random() * 500)
+            nodes[n].y = nodes[n].y + (Math.random() * 500) - (Math.random() * 500)
+          }
+        }
+
+        window.setInterval(function(){ // <-- from: https://stackoverflow.com/questions/2170923/whats-the-easiest-way-to-call-a-function-every-5-seconds-in-jquery
+          update_node_loc(nodes)
+        }, 50)
+
+        o_canvas.bind("click tap", function () {
+          scatter(nodes);
+        });
+
+      </script>
+    </div>
+    <div>
+      <p>This uses the javascript library: <a href='http://ocanvas.org/'>oCanvas</a></p>
+    </div>
+
+    </div>
+
   
 
   <!-- Icon Links at Main Page -->
