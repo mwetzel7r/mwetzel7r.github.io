@@ -37,6 +37,8 @@
         // 'canvas_background': '#ececec'
       };
 
+      const arrMean = arr => arr.reduce((a,b) => a + b, 0) / arr.length
+
       // __Initial Setup__
       var canvas = document.getElementById('particle_space');
       // canvas.width  = window.innerWidth;
@@ -55,15 +57,24 @@
       nodes = []
       momentums_x = []
       momentums_y = []
+      node_positions_x = []
+      node_positions_y = []
       for (i=0; i < settings['num_nodes']; i++) {
+        pos_x = Math.random() * 1000
+        pos_y = Math.random() * 1000
+
         var node = o_canvas.display.arc({
-          x: Math.random() * 1000,
-          y: Math.random() * 1000,
+          x: pos_x,
+          y: pos_y,
           radius: settings['node_size'],
           start: 360,
           fill: settings['node_fill_color'],
         })
+
         nodes = [...nodes, node] // <-- add node to nodes list
+        node_positions_x = [...node_positions_x, pos_x]
+        node_positions_y = [...node_positions_y, pos_y]
+
         momentums_x = [...momentums_x, 0]
         momentums_y = [...momentums_y, 0]
         o_canvas.addChild(node);
@@ -73,12 +84,15 @@
       y = 0
       function update_node_loc(nodes) {
         for (let n in nodes) {
-          momentums_x[n] = .01 * (x - nodes[n].x) + (.9 * momentums_x[n])
-          momentums_y[n] = .01 * (y - nodes[n].y) + (.9 * momentums_y[n])
 
+          momentums_x[n] = .01 * (x - nodes[n].x) + (.9 * momentums_x[n]) + (.01 * (x - arrMean(node_positions_x))) + (.0075 * (node_positions_x[n] - arrMean(node_positions_x)))
+          momentums_y[n] = .01 * (y - nodes[n].y) + (.9 * momentums_y[n]) + (.01 * (y - arrMean(node_positions_y))) + (.0075 * (node_positions_y[n] - arrMean(node_positions_y)))
 
-          nodes[n].x = nodes[n].x + momentums_x[n] + (Math.random() * 10) - (Math.random() * 10)
-          nodes[n].y = nodes[n].y + momentums_y[n] + (Math.random() * 10) - (Math.random() * 10)
+          node_positions_x[n] = node_positions_x[n] + momentums_x[n] + (Math.random() * 10) - (Math.random() * 10)
+          node_positions_y[n] = node_positions_y[n] + momentums_y[n] + (Math.random() * 10) - (Math.random() * 10)
+
+          nodes[n].x = node_positions_x[n]
+          nodes[n].y = node_positions_y[n]
 
         }
         o_canvas.redraw()
@@ -86,9 +100,13 @@
 
       function scatter(nodes) {
         for (let n in nodes) {
-          nodes[n].x = nodes[n].x + (Math.random() * 500) - (Math.random() * 500)
-          nodes[n].y = nodes[n].y + (Math.random() * 500) - (Math.random() * 500)
+          node_positions_x[n] =  node_positions_x[n] + (Math.random() * 500) - (Math.random() * 500)
+          node_positions_y[n] =  node_positions_y[n] + (Math.random() * 500) - (Math.random() * 500)
+          
+          nodes[n].x = node_positions_x[n] 
+          nodes[n].y = node_positions_y[n] 
         }
+        o_canvas.redraw()
       }
 
       window.setInterval(function(){ // <-- from: https://stackoverflow.com/questions/2170923/whats-the-easiest-way-to-call-a-function-every-5-seconds-in-jquery
