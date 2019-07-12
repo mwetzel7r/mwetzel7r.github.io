@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
+
   <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>matt wetzel</title>
@@ -16,15 +18,19 @@
     <script src='./modules/ocanvas-2.9.1.js'></script>
 
   </head>
+
+
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+
   <body>
   <!-- <div class='wrapper'> -->
     <h1>matt wetzel</h1>
     <p>¯\_(ツ)_/¯</p>
 
     <canvas id="particle_space" style='position:absolute; left:0px; top:10px;'>>your browser doesn't support canvas objects. *shrug*</canvas>
-
-
-
 
     <!-- Particle Swarm Viz -->
     <script>
@@ -83,7 +89,7 @@
       x = window.innerWidth / 2
       y = window.innerHeight / 2
 
-      // This is where the magic happens
+      // this is where the mathgic happens
       function update_node_loc(nodes) {
         for (let n in nodes) {
 
@@ -100,6 +106,7 @@
         o_canvas.redraw()
       }
 
+      // this is a fun add on
       function scatter(nodes) {
         for (let n in nodes) {
           node_positions_x[n] =  node_positions_x[n] + (Math.random() * 100) - (Math.random() * 100)
@@ -111,6 +118,8 @@
         o_canvas.redraw()
       }
 
+
+      // update stuff
       window.setInterval(function(){ // <-- from: https://stackoverflow.com/questions/2170923/whats-the-easiest-way-to-call-a-function-every-5-seconds-in-jquery
         update_node_loc(nodes)
       }, 50)
@@ -139,6 +148,11 @@
     </script>
 
 
+
+  <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+
   <!-- Icon Links at Main Page -->
   <div>
     <p id='shoutout'>This uses the javascript library: <a href='http://ocanvas.org/'>oCanvas</a></p>
@@ -149,21 +163,25 @@
       <img src='icons/main.ico'>
     </a>
   </div>
+
   <div>
     <a id='githublink' href='https://github.com/mwetzel7r'>
       <img src='icons/GitHub-Mark.png'>
     </a>
   </div>
+
   <div>
     <a id='osflink' href='https://osf.io/sw4z6/'>
       <img src='icons/osf.png'>
     </a>
   </div>
+
   <div>
     <a id='researchgatelink' href='https://www.researchgate.net/profile/Matt_Wetzel'>
       <img src='icons/researchgate.png'>
     </a>
   </div>
+
   <div>
     <a id='stackoverflowlink' href='https://stackoverflow.com/users/6794367/matt-w'>
       <img src='icons/stackoverflow.png'>
@@ -171,4 +189,5 @@
   </div>
 
   </body>
+
 </html>
